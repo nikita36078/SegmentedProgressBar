@@ -42,10 +42,10 @@ fun SegmentedProgressBar.getDrawingComponents(
 
     //Background component
     if (segment.animationState == Segment.AnimationState.ANIMATED) {
-        rectangles.add(RectF(startBound + stroke, height - stroke, endBound - stroke, stroke))
+        rectangles.add(RectF(startBound + stroke, stroke, endBound - stroke, height - stroke))
         paints.add(selectedBackgroundPaint)
     } else {
-        rectangles.add(RectF(startBound + stroke, height - stroke, endBound - stroke, stroke))
+        rectangles.add(RectF(startBound + stroke, stroke, endBound - stroke, height - stroke))
         paints.add(backgroundPaint)
     }
 
@@ -54,9 +54,9 @@ fun SegmentedProgressBar.getDrawingComponents(
         rectangles.add(
             RectF(
                 startBound + stroke,
-                height - stroke,
+                stroke,
                 startBound + segment.progressPercentage * segmentWidth,
-                stroke
+                height - stroke
             )
         )
         paints.add(selectedBackgroundPaint)
@@ -64,7 +64,7 @@ fun SegmentedProgressBar.getDrawingComponents(
 
     //Stroke component
     if (stroke > 0) {
-        rectangles.add(RectF(startBound + stroke, height - stroke, endBound - stroke, stroke))
+        rectangles.add(RectF(startBound + stroke, stroke, endBound - stroke, height - stroke))
         paints.add(strokePaint)
     }
 
