@@ -7,7 +7,9 @@
     android:layout_height="match_parent"
     tools:context=".standard.StandardExampleActivity">
 
-    <include layout="@layout/layout_pager"/>
+    <include
+        android:id="@+id/pagerLayout"
+        layout="@layout/layout_pager"/>
 
     <pt.tornelas.segmentedprogressbar.SegmentedProgressBar
         android:id="@+id/spb"

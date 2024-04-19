@@ -2,40 +2,39 @@ package pt.tornelas.segmentedprogressbar.standard
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_standard_example.*
-import kotlinx.android.synthetic.main.layout_pager.*
-import pt.tornelas.segmentedprogressbar.R
-import pt.tornelas.segmentedprogressbar.SegmentedProgressBar
 import pt.tornelas.segmentedprogressbar.SegmentedProgressBarListener
 import pt.tornelas.segmentedprogressbar.dataSource
+import pt.tornelas.segmentedprogressbar.databinding.ActivityStandardExampleBinding
 import pt.tornelas.segmentedprogressbar.pager.PagerAdapter
 
 class StandardExampleActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityStandardExampleBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_standard_example)
+        binding = ActivityStandardExampleBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val items = dataSource()
 
-        viewPager.adapter = PagerAdapter(supportFragmentManager, items)
-        spb.viewPager = viewPager
+        with(binding) {
+            pagerLayout.viewPager.adapter = PagerAdapter(supportFragmentManager, items)
+            spb.viewPager = pagerLayout.viewPager
 
-        spb.segmentCount = items.size
-        spb.listener = object : SegmentedProgressBarListener {
-            override fun onPage(oldPageIndex: Int, newPageIndex: Int) {
-                // New page started animating
-            }
+            spb.segmentCount = items.size
+            spb.listener = object : SegmentedProgressBarListener {
+                override fun onPage(oldPageIndex: Int, newPageIndex: Int) {
+                    // New page started animating
+                }
 
-            override fun onFinished() {
-                finish()
+                override fun onFinished() {
+                    finish()
+                }
             }
+            spb.start()
+
+            pagerLayout.btnNext.setOnClickListener { spb.next() }
+            pagerLayout.btnPrevious.setOnClickListener { spb.previous() }
         }
-
-        val spb = findViewById<SegmentedProgressBar>(R.id.spb)
-        spb.start()
-
-        btnNext.setOnClickListener { spb.next() }
-        btnPrevious.setOnClickListener { spb.previous() }
     }
 }
